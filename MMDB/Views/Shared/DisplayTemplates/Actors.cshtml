@@ -1,0 +1,17 @@
+﻿@using MMDB.Models
+@model ICollection<Actor>
+
+<span>
+    @{
+        var output = "";
+    }
+    @foreach (var item in Model)
+    {
+        output += item.ActorName + ", ";
+    }
+    @{ 
+        output = output.Trim().TrimEnd(',');
+    }
+    @output
+</span>
+        
