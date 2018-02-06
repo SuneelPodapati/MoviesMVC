@@ -22,7 +22,7 @@ namespace MMDB.Models
     
         public int ActorId { get; set; }
         public string ActorName { get; set; }
-        public bool Gender { get; set; }
+        public string Gender { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string Bio { get; set; }
     

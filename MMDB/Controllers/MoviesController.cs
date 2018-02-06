@@ -13,15 +13,121 @@ namespace MMDB.Controllers
     public class MoviesController : Controller
     {
         private MMDBSQLEntities db = new MMDBSQLEntities();
-
-        // GET: Movies
-        public ActionResult Index()
+        
+        public ActionResult Index(string status)
         {
-            var movies = db.Movies.Include(m => m.Producer);
-            return View(movies.ToList());
+            var movies = new List<Movie>();
+            try
+            {
+                ViewBag.status = status ?? "";
+                movies = db.Movies.Include(m => m.Producer).ToList();
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return View(movies);
+        }
+        
+        public ActionResult Create()
+        {
+            MovieViewModel viewModel = new MovieViewModel();
+            try
+            {
+                viewModel.AllActors = new SelectList(db.Actors, nameof(Actor.ActorId), nameof(Actor.ActorName));
+                viewModel.AllProducers = new SelectList(db.Producers, nameof(Producer.ProducerId), nameof(Producer.ProducerName));
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return View(viewModel);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(MovieViewModel viewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var allActorsList = db.Actors.ToList();
+                    viewModel.Movie.Actors = allActorsList.Where(x => viewModel.SelectedMovieActorsIds.Contains(x.ActorId)).ToList();
+                    db.Movies.Add(viewModel.Movie);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { status = "success" });
+                }
+                viewModel.AllActors = new MultiSelectList(db.Actors, nameof(Actor.ActorId), nameof(Actor.ActorName), viewModel.SelectedMovieActorsIds);
+                viewModel.AllProducers = new SelectList(db.Producers, nameof(Producer.ProducerId), nameof(Producer.ProducerName), viewModel.Movie.ProducerId);
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return View(viewModel);
+        }
+        
+        public ActionResult Edit(int? id)
+        {
+            MovieViewModel viewModel = new MovieViewModel();
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                viewModel.Movie = db.Movies.Include(i => i.Actors).First(i => i.MovieId == id);
+                if (viewModel.Movie == null)
+                {
+                    return HttpNotFound();
+                }
+                viewModel.SelectedMovieActorsIds = viewModel.Movie.Actors.Select(x => x.ActorId).ToList();
+                viewModel.AllActors = new MultiSelectList(db.Actors, nameof(Actor.ActorId), nameof(Actor.ActorName), viewModel.SelectedMovieActorsIds);
+                viewModel.AllProducers = new SelectList(db.Producers, nameof(Producer.ProducerId), nameof(Producer.ProducerName), viewModel.Movie.ProducerId);
+            }
+            catch (Exception exp)
+            {
+                
+            }
+            return View(viewModel);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(MovieViewModel viewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var allActorsList = db.Actors.ToList();
+                    viewModel.Movie.Actors = allActorsList.Where(x => viewModel.SelectedMovieActorsIds.Contains(x.ActorId)).ToList();
+                    var movie = db.Movies.Include(a => a.Actors).Single(x => x.MovieId == viewModel.Movie.MovieId);
+                    var actors = db.Actors.Where(x => viewModel.SelectedMovieActorsIds.Contains(x.ActorId));
+                    movie.Actors.Clear();
+                    foreach (var item in actors)
+                    {
+                        movie.Actors.Add(item);
+                    }
+                    movie.MovieName = viewModel.Movie.MovieName;
+                    movie.Plot = viewModel.Movie.Plot;
+                    movie.Poster = viewModel.Movie.Poster;
+                    movie.ProducerId = viewModel.Movie.ProducerId;
+                    movie.YearOfRelease = viewModel.Movie.YearOfRelease;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { status = "success" });
+                }
+                viewModel.AllActors = new MultiSelectList(db.Actors, nameof(Actor.ActorId), nameof(Actor.ActorName), viewModel.SelectedMovieActorsIds);
+                viewModel.AllProducers = new SelectList(db.Producers, nameof(Producer.ProducerId), nameof(Producer.ProducerName), viewModel.Movie.ProducerId);
+            }
+            catch (Exception exp)
+            {
+                
+            }
+            return View(viewModel);
         }
 
-        // GET: Movies/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,82 +142,6 @@ namespace MMDB.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Create
-        public ActionResult Create()
-        {
-            MovieViewModel viewModel = new MovieViewModel();
-            var allActorsList = db.Actors.ToList();
-            viewModel.AllActors = allActorsList.Select(o => new SelectListItem
-            {
-                Text = o.ActorName,
-                Value = o.ActorId.ToString()
-            });
-            ViewBag.ProducerId = new SelectList(db.Producers, "ProducerId", "ProducerName");
-            return View(viewModel);
-        }
-
-        // POST: Movies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(MovieViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                //db.Movies.Add(viewModel.Movie);
-                //db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            //ViewBag.ProducerId = new SelectList(db.Producers, "ProducerId", "ProducerName", viewModel.Movie.ProducerId);
-            return View(viewModel);
-        }
-
-        // GET: Movies/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovieViewModel viewModel = new MovieViewModel()
-            {
-                Movie = db.Movies.Include(i => i.Actors).First(i => i.MovieId == id)
-            };
-
-            if (viewModel.Movie == null)
-                return HttpNotFound();
-
-            var allActorsList = db.Actors.ToList();
-            viewModel.AllActors = allActorsList.Select(o => new SelectListItem
-            {
-                Text = o.ActorName,
-                Value = o.ActorId.ToString()
-            });
-            ViewBag.ProducerId = new SelectList(db.Producers, "ProducerId", "ProducerName", viewModel.Movie.ProducerId);
-            return View(viewModel);
-        }
-
-        // POST: Movies/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(MovieViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(viewModel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ProducerId = new SelectList(db.Producers, "ProducerId", "ProducerName", viewModel.Movie.ProducerId);
-            return View(viewModel);
-        }
-
-        // GET: Movies/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -125,8 +155,7 @@ namespace MMDB.Controllers
             }
             return View(movie);
         }
-
-        // POST: Movies/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -11,21 +11,11 @@ namespace MMDB.Models
     public class MovieViewModel
     {
         public Movie Movie { get; set; }
-        public IEnumerable<SelectListItem> AllActors { get; set; }
+        [Display(Name = "Actors")]
+        public IEnumerable<SelectListItem> AllActors { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> AllProducers { get; set; } = new List<SelectListItem>();
+        public List<int> SelectedMovieActorsIds { get; set; } = new List<int>();
 
-        private List<int> _selectedActors;
-        public List<int> SelectedActors
-        {
-            get
-            {
-                if (_selectedActors == null)
-                {
-                    _selectedActors = Movie.Actors.Select(m => m.ActorId).ToList();
-                }
-                return _selectedActors;
-            }
-            set { _selectedActors = value; }
-        }
     }
 
 
@@ -53,9 +43,11 @@ namespace MMDB.Models
 
         [MaxLength(1000)]
         [Display(Name = "Plot")]
+        [DataType(DataType.MultilineText)]
         public string Plot { get; set; }
 
         [Display(Name = "Poster")]
+        [UIHint("Poster")]
         public string Poster { get; set; }
 
         [Required]

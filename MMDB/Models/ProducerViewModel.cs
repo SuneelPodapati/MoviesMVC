@@ -22,13 +22,14 @@ namespace MMDB.Models
 
         [Display(Name = "Gender")]
         [Required]
-        public bool? Gender { get; set; }
+        public string Gender { get; set; }
 
         [Display(Name = "Date Of Birth")]
         [DataType(DataType.Date)]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
 
         [Display(Name = "Bio")]
+        [DataType(DataType.MultilineText)]
         [MaxLength(1000)]
         public string Bio { get; set; }
     }

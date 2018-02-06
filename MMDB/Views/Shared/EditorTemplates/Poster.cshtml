@@ -1,0 +1,19 @@
+﻿@model string
+    <input type="text"  id="fileText" name="Movie.Poster" value="@Model" class = "form-control" />
+    <input type="file" id="fileElem" accept="image/*" class = "form-control" style="display:none" />
+    <button id="fileSelect">Browse..</button>
+<script>
+    var fileSelect = document.getElementById("fileSelect");
+    var fileElem = document.getElementById("fileElem");
+    var fileText = document.getElementById("fileText");
+    fileSelect.addEventListener("click", function (e) {
+        if (fileElem) {
+            fileElem.click();
+        }
+        fileText.remove();
+        fileElem.removeAttribute("style");
+        fileElem.setAttribute("name", "Movie.Poster");
+        fileSelect.remove();
+        }, false);
+</script>
+

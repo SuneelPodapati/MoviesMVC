@@ -22,7 +22,7 @@ namespace MMDB.Models
 
         [Display(Name = "Gender")]
         [Required]
-        public bool? Gender { get; set; }
+        public string Gender { get; set; }
 
         [Display(Name = "Date Of Birth")]
         [DataType(DataType.Date)]
@@ -30,6 +30,7 @@ namespace MMDB.Models
 
         [Display(Name = "Bio")]
         [MaxLength(1000)]
+        [DataType(DataType.MultilineText)]
         public string Bio { get; set; }
 
         [Display(Name ="Movies")]

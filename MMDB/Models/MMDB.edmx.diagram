@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="16c6cd8c1b4b47bc86a5832a1252c47d" Name="Diagram1">
-        <EntityTypeShape EntityType="MMDB.Actor" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MMDB.Movie" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MMDB.Producer" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <AssociationConnector Association="MMDB.FK__Movie__ProducerI__31EC6D26" ManuallyRouted="false" />
-        <AssociationConnector Association="MMDB.Castings" ManuallyRouted="false" />
+      <Diagram DiagramId="de552c6cb8d64bacbdbf97f4f430d8f0" Name="Diagram1">
+        <EntityTypeShape EntityType="MMDBSQL.Actor" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MMDBSQL.Movie" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MMDBSQL.Producer" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="MMDBSQL.FK__Movie__ProducerI__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="MMDBSQL.Castings" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

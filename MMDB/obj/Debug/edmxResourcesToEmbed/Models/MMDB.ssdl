@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MMDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MMDBSQL.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Actor">
     <Key>
       <PropertyRef Name="ActorId" />
     </Key>
     <Property Name="ActorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ActorName" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Gender" Type="bit" Nullable="false" />
+    <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
     <Property Name="DateOfBirth" Type="date" />
     <Property Name="Bio" Type="varchar" MaxLength="1000" />
   </EntityType>
@@ -35,7 +35,7 @@
     </Key>
     <Property Name="ProducerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProducerName" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Gender" Type="bit" Nullable="false" />
+    <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
     <Property Name="DateOfBirth" Type="date" />
     <Property Name="Bio" Type="varchar" MaxLength="1000" />
   </EntityType>
@@ -75,7 +75,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="MMDBStoreContainer">
+  <EntityContainer Name="MMDBSQLStoreContainer">
     <EntitySet Name="Actor" EntityType="Self.Actor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Castings" EntityType="Self.Castings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
