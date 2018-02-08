@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="MMDBSQLEntities-Web.config Connection String" description="MMDBSQLEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.MMDBSQLEntities.csdl|res://*/Models.MMDBSQLEntities.ssdl|res://*/Models.MMDBSQLEntities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=mymdb.database.windows.net;initial catalog=MMDB;persist security info=True;user id=suneel.podapati;password=MysticMaya12;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Dev\\MMDB\\MMDB\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MMDBSQLEntities']/@connectionString" />
+  </parameter>
+</parameters>

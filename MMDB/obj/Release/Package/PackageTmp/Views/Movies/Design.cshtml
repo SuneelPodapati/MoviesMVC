@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Design";
+}
+
+<h2> Database Design</h2>
+
+<img src="~/Content/dbDesign.png" alt="Design Image" />
+<h2>
+    Script
+</h2>
+<code>
+    CREATE TABLE Actor
+    (
+    ActorId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    ActorName VARCHAR(255) NOT NULL,
+    Gender CHAR(1) NOT NULL,
+    DateOfBirth DATE,
+    Bio VARCHAR(1000)
+    );
+</code>
+<code>
+    CREATE TABLE Producer
+    (
+    ProducerId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    ProducerName VARCHAR(255) NOT NULL,
+    Gender CHAR(1) NOT NULL,
+    DateOfBirth DATE,
+    Bio VARCHAR(1000)
+    );
+</code>
+<code>
+    CREATE TABLE Movie
+    (
+    MovieId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    MovieName VARCHAR(255) NOT NULL,
+    YearOfRelease INT NOT NULL,
+    Plot VARCHAR(1000),
+    Poster VARCHAR(255),
+    ProducerId INT REFERENCES Producer(ProducerId) NOT NULL,
+    );
+</code>
+<code>
+    CREATE TABLE Castings
+    (
+    MovieId INT REFERENCES Movie(MovieId) NOT NULL,
+    ActorId INT REFERENCES Actor(ActorId) NOT NULL,
+    PRIMARY KEY (MovieId, ActorId)
+    );
+
+</code>

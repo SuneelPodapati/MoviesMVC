@@ -13,6 +13,11 @@ namespace MMDB.Controllers
     public class MoviesController : Controller
     {
         private MMDBSQLEntities db = new MMDBSQLEntities();
+
+        public ActionResult Design()
+        {
+            return View();
+        }
         
         public ActionResult Index(string status)
         {

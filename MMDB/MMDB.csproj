@@ -103,6 +103,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dbDesign.png" />
     <Content Include="Content\Site.css" />
     <Content Include="DBScript\MMDB.sql" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -110,23 +111,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <EntityDeploy Include="Models\MMDB.edmx">
+    <EntityDeploy Include="Models\MMDBSQLEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MMDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>MMDBSQLEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MMDB.edmx.diagram">
-      <DependentUpon>MMDB.edmx</DependentUpon>
+    <Content Include="Models\MMDBSQLEntities.edmx.diagram">
+      <DependentUpon>MMDBSQLEntities.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\MyMDB - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Models\MMDB.Context.tt">
+    <Content Include="Models\MMDBSQLEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MMDB.edmx</DependentUpon>
-      <LastGenOutput>MMDB.Context.cs</LastGenOutput>
+      <DependentUpon>MMDBSQLEntities.edmx</DependentUpon>
+      <LastGenOutput>MMDBSQLEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MMDB.tt">
+    <Content Include="Models\MMDBSQLEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MMDB.edmx</DependentUpon>
-      <LastGenOutput>MMDB.cs</LastGenOutput>
+      <DependentUpon>MMDBSQLEntities.edmx</DependentUpon>
+      <LastGenOutput>MMDBSQLEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -143,35 +145,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActorsController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\ProducersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Actor.cs">
-      <DependentUpon>MMDB.tt</DependentUpon>
+      <DependentUpon>MMDBSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ActorViewModel.cs" />
-    <Compile Include="Models\MMDB.Context.cs">
+    <Compile Include="Models\MMDBSQLEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MMDB.Context.tt</DependentUpon>
+      <DependentUpon>MMDBSQLEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MMDB.cs">
+    <Compile Include="Models\MMDBSQLEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MMDB.tt</DependentUpon>
+      <DependentUpon>MMDBSQLEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MMDB.Designer.cs">
+    <Compile Include="Models\MMDBSQLEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MMDB.edmx</DependentUpon>
+      <DependentUpon>MMDBSQLEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Movie.cs">
-      <DependentUpon>MMDB.tt</DependentUpon>
+      <DependentUpon>MMDBSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MovieViewModel.cs" />
     <Compile Include="Models\Producer.cs">
-      <DependentUpon>MMDB.tt</DependentUpon>
+      <DependentUpon>MMDBSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProducerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,6 +192,19 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\EditorTemplates\Poster.cshtml" />
+    <Content Include="Views\Producers\Create.cshtml" />
+    <Content Include="Views\Producers\Delete.cshtml" />
+    <Content Include="Views\Producers\Details.cshtml" />
+    <Content Include="Views\Producers\Edit.cshtml" />
+    <Content Include="Views\Producers\Index.cshtml" />
+    <Content Include="Views\Actors\Create.cshtml" />
+    <Content Include="Views\Actors\Delete.cshtml" />
+    <Content Include="Views\Actors\Details.cshtml" />
+    <Content Include="Views\Actors\Edit.cshtml" />
+    <Content Include="Views\Actors\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Gender.cshtml" />
+    <Content Include="Views\Movies\Design.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Gender.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -22,10 +22,12 @@ namespace MMDB.Models
 
         [Display(Name = "Gender")]
         [Required]
+        [UIHint("Gender")]
         public string Gender { get; set; }
 
         [Display(Name = "Date Of Birth")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
 
         [Display(Name = "Bio")]
